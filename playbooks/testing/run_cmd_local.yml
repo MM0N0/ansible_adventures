@@ -2,7 +2,9 @@
   gather_facts: no
   hosts: localhost
   tasks:
-    - local_action: shell whoami && hostname && ls -la
+    - shell: whoami && hostname && ls -la
       name: Shell Command
       register: cmd_out
-    - debug: msg={{ cmd_out.stdout_lines }}
+      delegate_to: localhost
+    - debug:
+        msg: "{{ cmd_out.stdout_lines }}"

@@ -1,11 +1,11 @@
 - name: list files
   gather_facts: no
-  hosts: all,!localhost
+  hosts: dev_simple
   become: yes
   become_method: sudo
   become_user: test_user
   tasks:
-    - shell: find ~
+    - command: find ~
       name: Shell Command
       register: cmd_out
     - debug:
