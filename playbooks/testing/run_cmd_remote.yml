@@ -1,11 +1,12 @@
-- name: "start remote-test"
+- name: start remote-test
   gather_facts: no
   hosts: all,!localhost
   become: yes
   become_method: sudo
   become_user: test_user
   tasks:
-    - shell: "whoami && hostname && ls -la"
+    - shell: whoami && hostname && ls -la
       name: Shell Command
       register: cmd_out
-    - debug: msg={{ cmd_out.stdout_lines }}
+    - debug:
+        msg: "{{ cmd_out.stdout_lines }}"

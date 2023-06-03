@@ -1,11 +1,12 @@
-- name: "list files"
+- name: list files
   gather_facts: no
   hosts: all,!localhost
   become: yes
   become_method: sudo
   become_user: test_user
   tasks:
-    - shell: "find ~"
+    - shell: find ~
       name: Shell Command
       register: cmd_out
-    - debug: msg={{ cmd_out.stdout_lines }}
+    - debug:
+        msg: "{{ cmd_out.stdout_lines }}"

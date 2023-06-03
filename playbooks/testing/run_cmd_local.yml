@@ -1,8 +1,8 @@
-- name: "start local-test"
+- name: start local-test
   gather_facts: no
   hosts: localhost
   tasks:
-    - local_action: "shell whoami && hostname && ls -la"
+    - local_action: shell whoami && hostname && ls -la
       name: Shell Command
       register: cmd_out
     - debug: msg={{ cmd_out.stdout_lines }}

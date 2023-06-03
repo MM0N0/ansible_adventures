@@ -1,4 +1,4 @@
-- name: "start local-test"
+- name: start local-test
   gather_facts: no
   hosts: dev_simple
   become: yes
