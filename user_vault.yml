@@ -1,0 +1,10 @@
+all:
+  children:
+    localhost_group:
+      hosts:
+        localhost:
+          ansible_connection: local
+    proj:
+      vars:
+        ansible_user: user
+        ansible_password: user
