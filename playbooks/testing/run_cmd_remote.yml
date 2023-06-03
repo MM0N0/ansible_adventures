@@ -1,6 +1,9 @@
 - name: "start remote-test"
   gather_facts: no
-  hosts: all
+  hosts: all,!localhost
+  become: yes
+  become_method: sudo
+  become_user: test_user
   tasks:
     - shell: "whoami && hostname && ls -la"
       name: Shell Command

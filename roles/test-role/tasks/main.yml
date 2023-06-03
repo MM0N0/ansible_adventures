@@ -1,0 +1,15 @@
+---
+- include_vars: vars/main.yml
+
+- name: Copy file with owner and permission, using symbolic representation
+  ansible.builtin.copy:
+    src: files/test.txt
+    dest: /home/test_user/test.txt
+    owner: test_user
+    group: test_user
+    mode: u=rw,g=r,o=r
+
+#- shell: cat ~/test.txt
+#  name: Shell Command
+#  register: cmd_out
+#- debug: msg={{ cmd_out.stdout_lines }}
