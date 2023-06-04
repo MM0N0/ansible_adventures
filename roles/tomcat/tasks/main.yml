@@ -73,10 +73,26 @@
     dest: "{{tomcat_current_dir}}"
     state: link
 
+# TODO: FINISH THIS
+# ROOT ACTION
+- name: allow sudo commands to control tomcat.service
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: 'user ALL=(ALL) NOPASSWD:/bin/systemctl * tomcat.service'
+    line: 'user ALL=(ALL) NOPASSWD:/bin/systemctl * tomcat.service'
+    validate: 'visudo -cf %s'
+  become: "{{ can_become_root | default(true) }}"
+  become_user: root
+  tags:
+    - root_actions
+  when: can_become_root | default(true)
 
-- name: Make sure a service unit is running
-  ansible.builtin.systemd:
+# needs sudoers:
+# user ALL=(ALL) NOPASSWD:/bin/systemctl * tomcat.service
+- name: start service
+  systemd:
     state: started
     name: tomcat.service
-  tags: [test]
-
+  become: true
+  become_user: root
