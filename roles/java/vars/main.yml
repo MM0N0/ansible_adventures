@@ -1,0 +1,16 @@
+---
+java_dirname: OpenJDK11U-jdk_x64_linux_hotspot_11.0.19_7
+java_download_filename: "{{java_dirname}}.tar.gz"
+java_download_url: "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.19%2B7/{{java_download_filename}}"
+
+java_local_downloaded_dir: "{{role_path}}/files/.downloaded"
+java_local_archive_path: "{{role_path}}/files/.downloaded/{{java_download_filename}}"
+
+base_dir: /applications
+java_base_dir: "{{base_dir}}/java"
+java_downloaded_dir: "{{java_base_dir}}/.downloaded"
+java_archive_path: "{{java_downloaded_dir}}/{{java_download_filename}}"
+java_dir: "{{java_base_dir}}/{{java_dirname}}"
+java_current_dir: "{{java_base_dir}}/current"
+
+java_bashrc_addition: "export JAVA_HOME={{java_current_dir}}"

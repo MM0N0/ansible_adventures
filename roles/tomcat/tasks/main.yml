@@ -1,0 +1,82 @@
+---
+- include_vars: vars/main.yml
+
+# download tomcat locally
+- name: local - create download directory
+  file:
+    path: "{{tomcat_local_downloaded_dir}}"
+    state: directory
+  delegate_to: localhost
+  vars:
+    ansible_become: false
+- name: local - download tomcat
+  get_url:
+    url: "{{tomcat_download_url}}"
+    dest: "{{tomcat_local_archive_path}}"
+    mode: "0644"
+    validate_certs: no
+  delegate_to: localhost
+  vars:
+    ansible_become: false
+
+# ROOT ACTION
+# run only root_actions like this:
+# ansible-playbook -i hosts/dev/ -i user_vault.yml \
+#  playbooks/testing/tomcat_test/tomcat-role.yml --tags root_actions
+# (optional) -e "can_become_root=true"
+- name: root - create application base dir
+  file:
+    path: "{{base_dir}}"
+    state: directory
+    mode: "0777"
+  become: "{{ can_become_root | default(true) }}"
+  become_user: root
+  tags:
+    - root_actions
+  when: can_become_root | default(true)
+# ROOT ACTION
+- name: create service
+  ansible.builtin.template:
+    src: "{{role_path}}/files/tomcat.service.j2"
+    dest: /etc/systemd/system/tomcat.service
+  become: "{{ can_become_root | default(true) }}"
+  become_user: root
+  vars:
+    tomcat_user: "{{ansible_facts['user_id']}}"
+  tags:
+    - root_actions
+  when: can_become_root | default(true)
+
+# create directories
+- name: create tomcat base dir
+  file:
+    path: "{{tomcat_base_dir}}"
+    state: directory
+    mode: "0744"
+- name: create tomcat dir
+  file:
+    path: "{{tomcat_base_dir}}/{{tomcat_dirname}}"
+    state: directory
+    mode: "0744"
+
+# unpack tomcat
+- name: Unpack tar.gz file
+  unarchive:
+    src: "{{tomcat_local_archive_path}}"
+    dest: "{{tomcat_dir}}"
+    extra_opts: "--strip-components=1"
+  when: not ansible_check_mode
+
+- name: set tomcat to current
+  file:
+    src: "{{tomcat_dir}}"
+    dest: "{{tomcat_current_dir}}"
+    state: link
+
+
+- name: Make sure a service unit is running
+  ansible.builtin.systemd:
+    state: started
+    name: tomcat.service
+  tags: [test]
+

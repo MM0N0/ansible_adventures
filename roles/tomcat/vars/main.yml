@@ -1,0 +1,17 @@
+---
+tomcat_dirname: apache-tomcat-10.1.9
+tomcat_download_filename: "{{tomcat_dirname}}.tar.gz"
+tomcat_download_url: "https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.9/bin/{{tomcat_download_filename}}"
+
+tomcat_local_downloaded_dir: "{{role_path}}/files/.downloaded"
+tomcat_local_archive_path: "{{role_path}}/files/.downloaded/{{tomcat_download_filename}}"
+
+base_dir: /applications
+tomcat_base_dir: "{{base_dir}}/tomcat"
+tomcat_downloaded_dir: "{{tomcat_base_dir}}/.downloaded"
+tomcat_archive_path: "{{tomcat_downloaded_dir}}/{{tomcat_download_filename}}"
+tomcat_dir: "{{tomcat_base_dir}}/{{tomcat_dirname}}"
+tomcat_current_dir: "{{tomcat_base_dir}}/current"
+
+java_base_dir: "{{base_dir}}/java"
+java_current_dir: "{{java_base_dir}}/current"

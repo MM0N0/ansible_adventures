@@ -1,0 +1,17 @@
+[Unit]
+Description=tomcat service
+
+[Service]
+Type=forking
+
+User={{tomcat_user}}
+Group={{tomcat_user}}
+
+Environment="JAVA_HOME={{java_current_dir}}/"
+
+WorkingDirectory={{tomcat_current_dir}}
+ExecStart={{tomcat_current_dir}}/bin/startup.sh
+ExecStop={{tomcat_current_dir}}/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+- name: start local-test
+  gather_facts: yes
+  hosts: dev_simple
+  become: yes
+  become_method: sudo
+  become_user: test_user
+  roles:
+    - role: tomcat
