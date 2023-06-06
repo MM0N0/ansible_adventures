@@ -1,6 +1,7 @@
 FROM centos/systemd
 
-RUN yum -y install net-tools rsync sysvinit-tools less sudo openssh-server openssh-clients
+RUN yum -y install net-tools rsync sysvinit-tools less sudo openssh-server openssh-clients epel-release
+RUN yum -y install ansible
 RUN systemctl enable sshd
 RUN sed -i '/UsePAM yes/d' /etc/ssh/sshd_config
 RUN echo "UsePAM no" >> /etc/ssh/sshd_config

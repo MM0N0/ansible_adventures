@@ -19,24 +19,10 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
 
-      - name: up
-        run: .test/docker/clean_centos/up.sh
+      - name: tomcat_java_test
+        run: |
+          .test/docker/clean_centos/up.sh
+          sed -i '/        ansible_port: 2222/c\        ansible_port: 22' user_vault.yml
+          docker exec -it centos_base_container /bin/bash -c "export ANSIBLE_CONFIG=ansible.cfg; cd /repo; ./.test/tomcat_java_test/run_playbooks.sh"
+          sleep 2 && curl localhost:8080
 
-      - uses: "MTES-MCT/nmap-action@main"
-        with:
-          host: localhost
-          outputDir: 'scans'
-          outputFile: 'nmapvuln.json'
-          raw: false
-
-      - name: testing
-        run: cat scans/nmapvuln.json
-
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
-
-      # run test
-      - name: run simple_test
-        run: bash .test/simple_test/test.sh
-      - name: run tomcat_java_test
-        run: bash .test/tomcat_java_test/test.sh
