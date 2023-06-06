@@ -19,8 +19,8 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
 
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
+      - name: up
+        run: .test/docker/clean_centos/up.sh
 
       - uses: "MTES-MCT/nmap-action@main"
         with:
@@ -31,6 +31,9 @@ jobs:
 
       - name: testing
         run: cat scans/nmapvuln.json
+
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
 
       # run test
       - name: run simple_test
