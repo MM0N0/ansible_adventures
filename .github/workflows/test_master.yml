@@ -19,6 +19,9 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
 
+      - name: testing
+        run: nmap -nP localhost
+
       # run test
       - name: run simple_test
         run: bash .test/simple_test/test.sh
