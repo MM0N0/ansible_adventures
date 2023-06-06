@@ -21,4 +21,4 @@ jobs:
 
       # run test
       - name: run simple_test
-          run: bash .test/simple_test/test.sh
+        run: bash .test/simple_test/test.sh
