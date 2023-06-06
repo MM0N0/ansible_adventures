@@ -23,6 +23,7 @@ jobs:
         run: |
           .test/docker/clean_centos/up.sh
           .github/workflows/change_ansible_port.sh
+          docker exec centos_base_container /bin/bash -c "nmap -nP localhost"
           docker exec centos_base_container /bin/bash -c "export ANSIBLE_CONFIG=ansible.cfg; cd /repo; ./.test/tomcat_java_test/run_playbooks.sh"
           sleep 2 && curl localhost:8080
 

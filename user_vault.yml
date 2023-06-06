@@ -9,4 +9,4 @@ all:
         ansible_user: user
         ansible_password: user
         can_become_root: false
-        ansible_port: 22
+        ansible_port: 2222

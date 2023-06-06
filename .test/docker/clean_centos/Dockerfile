@@ -18,8 +18,9 @@ RUN useradd -d /home/test_user -s /bin/bash -m test_user -u 1003 -g 1003
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN echo "root:root" | chpasswd
 RUN echo "user:user" | chpasswd
-
 USER root
+
+RUN yum -y install ansible
 
 EXPOSE 22
 EXPOSE 8080
