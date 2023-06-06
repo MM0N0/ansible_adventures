@@ -19,8 +19,15 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
 
+      - uses: "MTES-MCT/nmap-action@main"
+        with:
+          host: localhost
+          outputDir: 'scans'
+          outputFile: 'nmapvuln.json'
+          raw: false
+
       - name: testing
-        run: nmap -nP localhost
+        run: cat scans/nmapvuln.json
 
       # run test
       - name: run simple_test
