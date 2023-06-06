@@ -20,7 +20,7 @@ RUN echo "root:root" | chpasswd
 RUN echo "user:user" | chpasswd
 USER root
 
-RUN yum -y install ansible
+RUN yum -y install nmap
 
 EXPOSE 22
 EXPOSE 8080
