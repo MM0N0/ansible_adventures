@@ -14,15 +14,15 @@ jobs:
 #        with:
 #          args: "playbooks" # my ansible files in a folder
       # setup
-      - name: setup Ansible
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
+#      - name: setup Ansible
+#        run: |
+#          python -m pip install --upgrade pip
+#          if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
 
       - name: tomcat_java_test
         run: |
           .test/docker/clean_centos/up.sh
-          sed -i '/        ansible_port: 2222/c\        ansible_port: 22' user_vault.yml
+          .github/workflows/change_ansible_port.sh
           docker exec centos_base_container /bin/bash -c "export ANSIBLE_CONFIG=ansible.cfg; cd /repo; ./.test/tomcat_java_test/run_playbooks.sh"
           sleep 2 && curl localhost:8080
 
