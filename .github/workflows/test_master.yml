@@ -21,4 +21,4 @@ jobs:
 
       # run test
       - name: run simple_test
-        run: bash .test/simple_test/test.sh
+        run: chmod +x .test/simple_test/test.sh && bash .test/simple_test/test.sh
