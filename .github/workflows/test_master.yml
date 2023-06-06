@@ -19,6 +19,9 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
 
+      - name: up.sh
+        run: bash .test/docker/clean_centos/up.sh
+
       - uses: "MTES-MCT/nmap-action@main"
         with:
           host: localhost
