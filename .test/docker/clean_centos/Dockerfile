@@ -46,6 +46,7 @@ EXPOSE 80
 EXPOSE 443
 
 COPY systemctl.py /usr/bin/systemctl
+RUN chmod +x /usr/bin/systemctl
 
 RUN systemctl enable sshd
 
