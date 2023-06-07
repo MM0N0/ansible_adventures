@@ -70,7 +70,7 @@ enable_list:
 
 # Ansible-lint does not fail on warnings from the rules or tags listed below
 warn_list:
-  - yamllint
+#  - yaml[truthy]
   - skip_this_tag
   - experimental # experimental is included in the implicit list
   # - role-name
@@ -118,4 +118,4 @@ kinds:
 #   - example_module
 
 # Allow setting custom prefix for name[prefix] rule
-task_name_prefix: "{stem} | "
+task_name_prefix: '{stem} | '

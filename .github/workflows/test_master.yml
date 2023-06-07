@@ -1,4 +1,5 @@
 name: Test master Branch after push
+# yamllint disable-line rule:truthy
 on:
   push:
     branches:
@@ -17,7 +18,6 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
       - name: run ansible-lint
         uses: ansible-community/ansible-lint-action@v6.0.2
-
 
       - name: test
         run: |
