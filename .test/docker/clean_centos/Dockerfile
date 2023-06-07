@@ -1,4 +1,4 @@
-FROM centos/systemd
+FROM centos:centos7.9.2009
 
 ##########################################################################
 ### update glibc-common for locale files
@@ -25,11 +25,12 @@ RUN (mkdir -p /root/.ssh/; \
 
 RUN groupadd -g 1000 user
 RUN useradd -d /home/user -s /bin/bash -m user -u 1000 -g 1000
-RUN groupadd sudo
-RUN usermod -aG sudo user
 
 RUN groupadd -g 1003 test_user
 RUN useradd -d /home/test_user -s /bin/bash -m test_user -u 1003 -g 1003
+
+RUN groupadd sudo
+RUN usermod -aG sudo user
 
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN echo "root:root" | chpasswd
@@ -44,6 +45,9 @@ EXPOSE 8000
 EXPOSE 80
 EXPOSE 443
 
+COPY systemctl.py /usr/bin/systemctl
+
 RUN systemctl enable sshd
-CMD /usr/sbin/init
-# CMD service crond start; /usr/sbin/sshd -D
+
+ENTRYPOINT /usr/sbin/sshd -D
+CMD /usr/bin/systemctl
