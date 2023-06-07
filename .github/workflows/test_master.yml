@@ -19,9 +19,11 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
 
+      - name: tomcat_simple_test
+        run: .test/simple_test/test.sh
+
       - name: tomcat_java_test
-        run: |
-          .test/tomcat_java_test/test.sh
+        run: .test/tomcat_java_test/test.sh
 
 #      - name: tomcat_java_test
 #        run: |

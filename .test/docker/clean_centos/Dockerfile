@@ -1,17 +1,9 @@
 FROM centos:centos7.9.2009
 
-##########################################################################
-### update glibc-common for locale files
 RUN yum update -y glibc-common
+RUN yum install -y sudo openssh-server openssh-clients epel-release
+RUN yum install -y sshpass
 
-##########################################################################
-# all yum installations here
-RUN yum install -y sudo passwd openssh-server openssh-clients tar screen crontabs strace telnet perl libpcap bc patch ntp dnsmasq unzip pax which epel-release
-
-##########################################################################
-RUN (yum install -y hiera lsyncd sshpass rng-tools)
-
-# start sshd to generate host keys, patch sshd_config and enable yum repos
 RUN (ssh-keygen -A; \
      sed -i 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config; \
      sed -i 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config; \
