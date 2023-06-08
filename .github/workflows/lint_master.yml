@@ -11,10 +11,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # needed for progressive mode to work
-      # linting
 #      - name: setup Ansible
 #        run: |
 #          python -m pip install --upgrade pip
-#          if [ -f requirements.txt ]; then pip install -r .github/workflows/python_requirements.txt; fi
+#          if [ -f requirements.txt ]; then pip install -r .github/workflows/ansible-lint_requirements.txt; fi
+#      - name: run ansible-lint
+#        uses: ansible-community/ansible-lint-action@v6.0.2
       - name: run ansible-lint
-        uses: ansible-community/ansible-lint-action@v6.0.2
+        run: ansible-lint .
