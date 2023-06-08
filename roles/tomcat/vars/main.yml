@@ -17,6 +17,3 @@ java_base_dir: "{{base_dir}}/java"
 java_current_dir: "{{java_base_dir}}/current"
 
 base_dir_group: ansible
-
-tomcat_user: tomcat
-tomcat_group: tomcat
