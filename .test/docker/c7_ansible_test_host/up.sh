@@ -6,7 +6,7 @@
 # build
 #docker build -t "$IMAGE" "$SCRIPT_DIR"
 # pull image
-#docker pull "$IMAGE"
+docker pull "$IMAGE"
 
 # start
 docker run --rm \
