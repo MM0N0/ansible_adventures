@@ -5,6 +5,8 @@
 
 # build
 #docker build -t "$IMAGE" "$SCRIPT_DIR"
+# pull image
+docker pull mm0n0/c7_ansible_test_host
 
 # start
 docker run --rm \
