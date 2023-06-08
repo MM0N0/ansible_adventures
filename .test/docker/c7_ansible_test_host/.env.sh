@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 DOCKERHUB_ID=mm0n0
 IMAGE_NAME=c7_ansible_test_host
 VERSION=v1
