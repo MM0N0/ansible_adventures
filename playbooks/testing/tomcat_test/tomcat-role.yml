@@ -5,6 +5,6 @@
   become_method: sudo
   roles:
     - role: tomcat
-      tomcat_user: tomcat_useraaaa
-      tomcat_group: tomcat_grouuuup
+#      tomcat_user: tomcat_useraaaa
+#      tomcat_group: tomcat_grouuuup
       ssh_user: "{{ansible_user}}"
