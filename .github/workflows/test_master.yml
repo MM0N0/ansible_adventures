@@ -26,4 +26,4 @@ jobs:
     container: cytopia/ansible-lint
     steps:
       - name: run ansible-lint
-        uses: ansible-lint .
+        run: ansible-lint .
