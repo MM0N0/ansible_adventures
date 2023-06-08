@@ -21,4 +21,4 @@ ansible-playbook -i hosts/dev/ -i user_vault.yml \
 
 sleep 2 && curl localhost:8080
 
-#./.test/docker/c7_ansible_test_host/down.sh
+./.test/docker/c7_ansible_test_host/down.sh
