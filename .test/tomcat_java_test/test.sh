@@ -17,7 +17,7 @@ ansible-playbook -i hosts/dev/ -i user_vault.yml \
 # (can_become_root is set to false in user_vault.yml)
 ansible-playbook -i hosts/dev/ -i user_vault.yml \
  playbooks/testing/java_test/java-role.yml \
- playbooks/testing/tomcat_test/tomcat-role.yml
+ playbooks/testing/tomcat_test/tomcat-role.yml -vvv
 
 sleep 2 && curl localhost:8080
 
