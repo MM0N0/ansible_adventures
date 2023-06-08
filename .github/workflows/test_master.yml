@@ -5,14 +5,18 @@ on:
     branches:
       - master
 jobs:
-  test:
+  simple_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: test
-        run: |
-          .test/simple_test/test.sh
-          .test/tomcat_java_test/test.sh
+        run: .test/simple_test/test.sh
+  tomcat_java_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: test
+        run: .test/tomcat_java_test/test.sh
   lint:
     runs-on: ubuntu-latest
     container: cytopia/ansible-lint
