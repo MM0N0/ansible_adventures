@@ -1,5 +1,4 @@
 #! /usr/bin/python2
-# source:  https://github.com/gdraheim/docker-systemctl-replacement/tree/master
 # generated from systemctl3.py - do not change
 from __future__ import print_function
 import threading

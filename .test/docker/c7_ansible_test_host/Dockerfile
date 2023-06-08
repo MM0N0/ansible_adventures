@@ -37,6 +37,8 @@ EXPOSE 8000
 EXPOSE 80
 EXPOSE 443
 
+# systemd replacement script
+# source: https://github.com/gdraheim/docker-systemctl-replacement/tree/master
 COPY systemctl.py /usr/bin/systemctl
 RUN chmod +x /usr/bin/systemctl
 

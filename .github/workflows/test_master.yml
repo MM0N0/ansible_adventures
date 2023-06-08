@@ -15,14 +15,6 @@ jobs:
           .test/tomcat_java_test/test.sh
   lint:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: run ansible-lint
-        uses: ansible-community/ansible-lint-action@v6.0.2
-  lint2:
-    runs-on: ubuntu-latest
     container: cytopia/ansible-lint
     steps:
       - name: run ansible-lint
