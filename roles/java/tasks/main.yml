@@ -40,15 +40,15 @@
   file:
     path: "{{java_base_dir}}"
     state: directory
-    mode: "0744"
+    mode: "0755"
 - name: create java dir
   file:
     path: "{{java_base_dir}}/{{java_dirname}}"
     state: directory
-    mode: "0744"
+    mode: "0755"
 
 # unpack java
-- name: Unpack tar.gz file
+- name: unpack tar.gz file
   unarchive:
     src: "{{java_local_archive_path}}"
     dest: "{{java_dir}}"

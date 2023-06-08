@@ -1,0 +1,71 @@
+---
+
+- name: root - create the group
+  group:
+    name: "{{tomcat_group}}"
+    state: present
+  tags:
+    - root_tasks
+  when: can_become_root | default(true)
+
+- name: root - create the user
+  user:
+    name: "{{tomcat_user}}"
+    group: "{{tomcat_group}}"
+    state: present
+  tags:
+    - root_tasks
+  when: can_become_root | default(true)
+
+- name: root - create service
+  ansible.builtin.template:
+    src: "{{role_path}}/files/tomcat.service.j2"
+    dest: /etc/systemd/system/tomcat.service
+  tags:
+    - root_tasks
+  when: can_become_root | default(true)
+
+- name: root - add control of tomcat.service to sudoers for tomcat_group
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "{{sudoers_line}}"
+    line: "{{sudoers_line}}"
+    validate: 'visudo -cf %s'
+  vars:
+    sudoers_line: "%{{tomcat_group}} ALL=(root) NOPASSWD:/bin/systemctl * tomcat.service"
+  tags:
+    - root_tasks
+  when: can_become_root | default(true)
+
+- name: root - add switch to tomcat_user to sudoers for ssh_user
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "{{sudoers_line}}"
+    line: "{{sudoers_line}}"
+    validate: 'visudo -cf %s'
+  vars:
+    sudoers_line: "{{ssh_user}} ALL=({{tomcat_user}}) NOPASSWD:ALL"
+  tags:
+    - root_tasks
+  when: can_become_root | default(true)
+
+- name: root - add ssh_user to tomcat_group
+  user:
+    name: "{{ssh_user}}"
+    group: "{{tomcat_group}}"
+    state: present
+  tags:
+    - root_tasks
+  when: can_become_root | default(true)
+
+- name: root - create application base dir
+  file:
+    path: "{{base_dir}}"
+    state: directory
+    mode: "0777"
+#    group: "{{base_dir_group}}"
+  tags:
+    - root_tasks
+  when: can_become_root | default(true)

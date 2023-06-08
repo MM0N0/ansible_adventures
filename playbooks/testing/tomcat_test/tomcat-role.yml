@@ -1,8 +1,10 @@
-- name: start local-test
+- name: tomcat role
   gather_facts: yes
   hosts: dev_simple
   become: yes
   become_method: sudo
-  become_user: test_user
   roles:
     - role: tomcat
+      tomcat_user: tomcat_useraaaa
+      tomcat_group: tomcat_grouuuup
+      ssh_user: "{{ansible_user}}"

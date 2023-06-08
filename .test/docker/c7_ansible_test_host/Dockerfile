@@ -23,6 +23,9 @@ RUN useradd -d /home/test_user -s /bin/bash -m test_user -u 1003 -g 1003
 
 RUN groupadd sudo
 RUN usermod -aG sudo user
+RUN groupadd ansible
+RUN usermod -aG ansible user
+RUN usermod -aG ansible test_user
 
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN echo "root:root" | chpasswd

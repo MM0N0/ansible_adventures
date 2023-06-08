@@ -1,0 +1,41 @@
+---
+
+# create directories
+- name: create tomcat base dir
+  become_user: "{{tomcat_user}}"
+  file:
+    path: "{{tomcat_base_dir}}"
+    state: directory
+    mode: "0766"
+- name: create tomcat dir
+  become_user: "{{tomcat_user}}"
+  file:
+    path: "{{tomcat_base_dir}}/{{tomcat_dirname}}"
+    state: directory
+    mode: "0766"
+
+# unpack tomcat
+- name: unpack tar.gz file
+  become_user: "{{tomcat_user}}"
+  unarchive:
+    src: "{{tomcat_local_archive_path}}"
+    dest: "{{tomcat_dir}}"
+    extra_opts: "--strip-components=1"
+    owner: "{{tomcat_user}}"
+    group: "{{tomcat_group}}"
+  when: not ansible_check_mode
+
+- name: set tomcat to current
+  become_user: "{{tomcat_user}}"
+  file:
+    src: "{{tomcat_dir}}"
+    dest: "{{tomcat_current_dir}}"
+    state: link
+
+# needs sudoers (set above):
+# user ALL=(ALL) NOPASSWD:/bin/systemctl * tomcat.service
+- name: start service
+  become_user: root
+  systemd:
+    state: started
+    name: tomcat.service

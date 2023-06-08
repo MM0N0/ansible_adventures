@@ -7,4 +7,4 @@
 docker build -t "$IMAGE" "$SCRIPT_DIR"
 
 # publish
-docker push "$IMAGE"
+#docker push "$IMAGE"

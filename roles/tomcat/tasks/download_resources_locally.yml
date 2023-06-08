@@ -1,0 +1,19 @@
+---
+# download tomcat locally
+- name: local - create download directory
+  delegate_to: localhost
+  vars:
+    ansible_become: false
+  file:
+    path: "{{tomcat_local_downloaded_dir}}"
+    state: directory
+
+- name: local - download tomcat
+  delegate_to: localhost
+  vars:
+    ansible_become: false
+  get_url:
+    url: "{{tomcat_download_url}}"
+    dest: "{{tomcat_local_archive_path}}"
+    mode: "0644"
+    validate_certs: no
