@@ -1,4 +1,4 @@
-name: test master branch
+name: lint/test master
 # yamllint disable-line rule:truthy
 on:
   push:
