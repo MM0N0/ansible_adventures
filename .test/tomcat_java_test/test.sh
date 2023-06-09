@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-./.test/docker/c7_ansible_test_host/down.sh > /dev/null 2> /dev/null || echo "no running container"
+./.test/docker/c7_ansible_test_host/down.sh > /dev/null 2>&1 || echo "no running container"
 
 # to make script abort, when any command fails
 set -e
