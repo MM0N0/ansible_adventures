@@ -1,0 +1,15 @@
+---
+# download java locally
+- name: local - create download directory
+  delegate_to: localhost
+  file:
+    path: "{{java_local_downloaded_dir}}"
+    state: directory
+
+- name: local - download java
+  delegate_to: localhost
+  get_url:
+    url: "{{java_download_url}}"
+    dest: "{{java_local_archive_path}}"
+    mode: "0644"
+    validate_certs: no

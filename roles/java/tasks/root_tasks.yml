@@ -1,0 +1,13 @@
+---
+
+# ROOT ACTION
+# run only root_tasks like this:
+# ansible-playbook -i hosts/dev/ -i user_vault.yml \
+#  playbooks/testing/java_test/java-role.yml --tags root_tasks
+# (optional) -e "can_become_root=true"
+- name: root - create application base dir
+  file:
+    path: "{{base_dir}}"
+    state: directory
+    mode: "0777"
+  tags: [root_tasks]

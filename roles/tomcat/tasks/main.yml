@@ -2,12 +2,11 @@
 - include_vars: vars/main.yml
 
 - include_tasks: root_tasks.yml
-  vars:
-    become_user: root
-  tags:
-    - root_tasks
+  vars: {become_user: root}
   when: can_become_root | default(true)
+  tags: [root_tasks]
 
 - include_tasks: download_resources_locally.yml
+  vars: {ansible_become: false}
 
 - include_tasks: non_root_tasks.yml

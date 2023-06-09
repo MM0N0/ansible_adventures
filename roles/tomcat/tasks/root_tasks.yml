@@ -4,23 +4,20 @@
   group:
     name: "{{tomcat_group}}"
     state: present
-  tags:
-    - root_tasks
+  tags: [root_tasks]
 
 - name: root - create the user
   user:
     name: "{{tomcat_user}}"
     group: "{{tomcat_group}}"
     state: present
-  tags:
-    - root_tasks
+  tags: [root_tasks]
 
 - name: root - create service
   ansible.builtin.template:
     src: "{{role_path}}/files/tomcat.service.j2"
     dest: /etc/systemd/system/tomcat.service
-  tags:
-    - root_tasks
+  tags: [root_tasks]
 
 - name: root - add control of tomcat.service to sudoers for tomcat_group
   lineinfile:
@@ -31,8 +28,7 @@
     validate: 'visudo -cf %s'
   vars:
     sudoers_line: "%{{tomcat_group}} ALL=(root) NOPASSWD:/bin/systemctl * tomcat.service"
-  tags:
-    - root_tasks
+  tags: [root_tasks]
 
 - name: root - add switch to tomcat_user to sudoers for ssh_user
   lineinfile:
@@ -43,21 +39,18 @@
     validate: 'visudo -cf %s'
   vars:
     sudoers_line: "{{ssh_user}} ALL=({{tomcat_user}}) NOPASSWD:ALL"
-  tags:
-    - root_tasks
+  tags: [root_tasks]
 
 - name: root - add ssh_user to tomcat_group
   user:
     name: "{{ssh_user}}"
     group: "{{tomcat_group}}"
     state: present
-  tags:
-    - root_tasks
+  tags: [root_tasks]
 
 - name: root - create application base dir
   file:
     path: "{{base_dir}}"
     state: directory
     mode: "0777"
-  tags:
-    - root_tasks
+  tags: [root_tasks]

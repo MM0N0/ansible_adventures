@@ -1,68 +1,12 @@
 ---
 - include_vars: vars/main.yml
 
-# download java locally
-- name: local - create download directory
-  file:
-    path: "{{java_local_downloaded_dir}}"
-    state: directory
-  delegate_to: localhost
-  vars:
-    ansible_become: false
-- name: local - download java
-  get_url:
-    url: "{{java_download_url}}"
-    dest: "{{java_local_archive_path}}"
-    mode: "0644"
-    validate_certs: no
-  delegate_to: localhost
-  vars:
-    ansible_become: false
-
-# ROOT ACTION
-# run only root_actions like this:
-# ansible-playbook -i hosts/dev/ -i user_vault.yml \
-#  playbooks/testing/java_test/java-role.yml --tags root_actions
-# (optional) -e "can_become_root=true"
-- name: root - create application base dir
-  file:
-    path: "{{base_dir}}"
-    state: directory
-    mode: "0777"
-  become: "{{ can_become_root | default(true) }}"
-  become_user: root
+- include_tasks: root_tasks.yml
+  vars: {become_user: root}
   when: can_become_root | default(true)
-  tags:
-    - root_actions
+  tags: [root_tasks]
 
-# create directories
-- name: create java base dir
-  file:
-    path: "{{java_base_dir}}"
-    state: directory
-    mode: "0755"
-- name: create java dir
-  file:
-    path: "{{java_base_dir}}/{{java_dirname}}"
-    state: directory
-    mode: "0755"
+- include_tasks: download_resources_locally.yml
+  vars: {ansible_become: false}
 
-# unpack java
-- name: unpack tar.gz file
-  unarchive:
-    src: "{{java_local_archive_path}}"
-    dest: "{{java_dir}}"
-    extra_opts: "--strip-components=1"
-  when: not ansible_check_mode
-
-- name: set java to current
-  file:
-    src: "{{java_dir}}"
-    dest: "{{java_current_dir}}"
-    state: link
-
-- name: add JAVA_HOME to bashrc
-  ansible.builtin.lineinfile:
-    path: ~/.bashrc
-    regexp: "{{java_bashrc_addition}}"
-    line: "{{java_bashrc_addition}}"
+- include_tasks: non_root_tasks.yml

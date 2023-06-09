@@ -1,0 +1,28 @@
+---
+
+# create directories
+- name: create java base dir
+  file:
+    path: "{{java_base_dir}}"
+    state: directory
+    mode: "0755"
+- name: create java dir
+  file:
+    path: "{{java_base_dir}}/{{java_dirname}}"
+    state: directory
+    mode: "0755"
+
+# unpack java
+- name: unpack tar.gz file
+  unarchive:
+    src: "{{java_local_archive_path}}"
+    dest: "{{java_dir}}"
+    extra_opts: "--strip-components=1"
+  when: not ansible_check_mode
+
+# set as current
+- name: set java to current
+  file:
+    src: "{{java_dir}}"
+    dest: "{{java_current_dir}}"
+    state: link
