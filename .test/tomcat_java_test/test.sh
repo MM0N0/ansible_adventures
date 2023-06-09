@@ -5,7 +5,7 @@
 set -e
 set -o pipefail
 
-./.test/docker/c7_ansible_test_host/up.sh
+./.test/docker/c7_ansible_test_host/up.sh && sleep 2
 
 # do root tasks
 ansible-playbook -i hosts/dev/ -i user_vault.yml \
@@ -17,7 +17,7 @@ ansible-playbook -i hosts/dev/ -i user_vault.yml \
 # (can_become_root is set to false in user_vault.yml)
 ansible-playbook -i hosts/dev/ -i user_vault.yml \
  playbooks/testing/java_test/java-role.yml \
- playbooks/testing/tomcat_test/tomcat-role.yml -vvv
+ playbooks/testing/tomcat_test/tomcat-role.yml
 
 sleep 2 && curl localhost:8080
 
