@@ -5,6 +5,7 @@ on:
     branches:
       - master
 jobs:
+
   lint:
     runs-on: ubuntu-latest
     container: cytopia/ansible-lint

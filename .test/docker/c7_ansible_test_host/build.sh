@@ -4,7 +4,4 @@
 . "${0%/*}/.env.sh"
 
 # build
-"$SCRIPT_DIR/build.sh"
-
-# publish
-docker push "$IMAGE"
+docker build -t "$IMAGE" "$SCRIPT_DIR"
