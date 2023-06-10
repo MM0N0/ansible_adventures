@@ -3,7 +3,7 @@
   hosts: all,!localhost
   become: yes
   become_method: sudo
-  become_user: test_user
+  become_user: root
   tasks:
     - shell: whoami && hostname && ls -la
       name: Shell Command

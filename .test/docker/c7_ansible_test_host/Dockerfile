@@ -17,28 +17,12 @@ RUN (mkdir -p /root/.ssh/; \
 
 RUN groupadd -g 1000 user
 RUN useradd -d /home/user -s /bin/bash -m user -u 1000 -g 1000
-
-RUN groupadd -g 1003 test_user
-RUN useradd -d /home/test_user -s /bin/bash -m test_user -u 1003 -g 1003
-
 RUN groupadd sudo
 RUN usermod -aG sudo user
-RUN groupadd ansible
-RUN usermod -aG ansible user
-RUN usermod -aG ansible test_user
 
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN echo "root:root" | chpasswd
 RUN echo "user:user" | chpasswd
-
-USER root
-
-EXPOSE 22
-EXPOSE 8080
-EXPOSE 8090
-EXPOSE 8000
-EXPOSE 80
-EXPOSE 443
 
 # systemd replacement script
 # source: https://github.com/gdraheim/docker-systemctl-replacement/tree/master
@@ -46,6 +30,13 @@ COPY systemctl.py /usr/bin/systemctl
 RUN chmod +x /usr/bin/systemctl
 
 RUN systemctl enable sshd
+
+EXPOSE 22
+EXPOSE 8080
+EXPOSE 8090
+EXPOSE 8000
+EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT /usr/sbin/sshd -D
 CMD /usr/bin/systemctl

@@ -2,11 +2,13 @@
 
 # create directories
 - name: create java base dir
+  become_user: "{{java_user}}"
   file:
     path: "{{java_base_dir}}"
     state: directory
     mode: "0755"
 - name: create java dir
+  become_user: "{{java_user}}"
   file:
     path: "{{java_base_dir}}/{{java_dirname}}"
     state: directory
@@ -14,6 +16,7 @@
 
 # unpack java
 - name: unpack tar.gz file
+  become_user: "{{java_user}}"
   unarchive:
     src: "{{java_local_archive_path}}"
     dest: "{{java_dir}}"
@@ -22,6 +25,7 @@
 
 # set as current
 - name: set java to current
+  become_user: "{{java_user}}"
   file:
     src: "{{java_dir}}"
     dest: "{{java_current_dir}}"

@@ -1,12 +1,12 @@
 ---
 
-- name: root - create the group
+- name: root - create tomcat_group
   group:
     name: "{{tomcat_group}}"
     state: present
   tags: [root_tasks]
 
-- name: root - create the user
+- name: root - create tomcat_user
   user:
     name: "{{tomcat_user}}"
     group: "{{tomcat_group}}"

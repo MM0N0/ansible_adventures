@@ -3,9 +3,9 @@
   hosts: dev_simple
   become: yes
   become_method: sudo
-  become_user: test_user
+  become_user: root
   tasks:
-    - command: find ~
+    - command: find /home/user
       name: Shell Command
       register: cmd_out
     - debug:

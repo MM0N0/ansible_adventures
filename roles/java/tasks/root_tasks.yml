@@ -1,5 +1,18 @@
 ---
 
+- name: root - create java_group
+  group:
+    name: "{{java_group}}"
+    state: present
+  tags: [root_tasks]
+
+- name: root - create java_user
+  user:
+    name: "{{java_user}}"
+    group: "{{java_group}}"
+    state: present
+  tags: [root_tasks]
+
 - name: root - create application base dir
   file:
     path: "{{base_dir}}"

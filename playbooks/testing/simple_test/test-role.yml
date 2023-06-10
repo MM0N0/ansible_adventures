@@ -3,6 +3,6 @@
   hosts: dev_simple
   become: yes
   become_method: sudo
-  become_user: test_user
+  become_user: user
   roles:
     - test-role

@@ -10,12 +10,13 @@ set -o pipefail
 
 ## do root- and non-root-tasks
 ## running with can_become_root=true
-ansible-playbook -vvv -i hosts/dev/ -i user_vault.yml \
+ansible-playbook -i hosts/dev/ -i user_vault.yml \
  \
  playbooks/testing/java_test/java-role.yml \
  playbooks/testing/tomcat_test/tomcat-role.yml \
  \
- -e "can_become_root=true"
+ -e "can_become_root=true" \
+ $1
 
 ## do non-root tasks
 ## running with can_become_root=false
