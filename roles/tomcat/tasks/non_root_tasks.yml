@@ -25,6 +25,7 @@
     group: "{{tomcat_group}}"
   when: not ansible_check_mode
 
+# set as current
 - name: set tomcat to current
   become_user: "{{tomcat_user}}"
   file:

@@ -1,5 +1,5 @@
 ---
-# download tomcat locally
+
 - name: local - create download directory
   delegate_to: localhost
   file:
