@@ -18,4 +18,4 @@ $ANSIBLE_CMD -e "can_become_root=true" $1
 # run tests
 $ANSIBLE_CMD --tags test
 
-#./.test/docker/c7_ansible_test_host/down.sh
+./.test/docker/c7_ansible_test_host/down.sh
