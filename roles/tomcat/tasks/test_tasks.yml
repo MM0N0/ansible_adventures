@@ -1,0 +1,14 @@
+---
+- shell: curl -s -o /dev/null -w "%{http_code}" localhost:8080
+  register: status_code
+  tags: [ 'test' ]
+  when: "'test' in ansible_run_tags"
+
+- name: test - check status code after start
+  ansible.builtin.assert:
+    that:
+      - status_code.stdout == "200"
+    fail_msg: "'status_code' must be 200"
+    success_msg: "'status_code' is 200"
+  tags: [ 'test' ]
+  when: "'test' in ansible_run_tags"

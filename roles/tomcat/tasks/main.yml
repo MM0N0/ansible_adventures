@@ -10,3 +10,7 @@
   vars: {ansible_become: false}
 
 - include_tasks: non_root_tasks.yml
+
+- include_tasks: test_tasks.yml
+  tags: [test]
+  when: "'test' in ansible_run_tags"

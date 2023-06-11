@@ -5,27 +5,17 @@
 set -e
 set -o pipefail
 
-./.test/docker/c7_ansible_test_host/up.sh && sleep 2
+./.test/docker/c7_ansible_test_host/up.sh
 
+ANSIBLE_CMD="ansible-playbook -i hosts/dev/ -i user_vault.yml \
+             playbooks/testing/java_test/java-role.yml \
+             playbooks/testing/tomcat_test/tomcat-role.yml"
 
-## do root- and non-root-tasks
-## running with can_become_root=true
-ansible-playbook -i hosts/dev/ -i user_vault.yml \
- \
- playbooks/testing/java_test/java-role.yml \
- playbooks/testing/tomcat_test/tomcat-role.yml \
- \
- -e "can_become_root=true" \
- $1
+# do root- and non-root-tasks
+# running with can_become_root=true
+$ANSIBLE_CMD -e "can_become_root=true" $1
 
-## do non-root tasks
-## running with can_become_root=false
-## (can_become_root is set to false in user_vault.yml)
-#ansible-playbook -i hosts/dev/ -i user_vault.yml \
-# playbooks/testing/java_test/java-role.yml \
-# playbooks/testing/tomcat_test/tomcat-role.yml
+# run tests
+$ANSIBLE_CMD --tags test
 
-
-sleep 2 && curl localhost:8080
-
-./.test/docker/c7_ansible_test_host/down.sh
+#./.test/docker/c7_ansible_test_host/down.sh

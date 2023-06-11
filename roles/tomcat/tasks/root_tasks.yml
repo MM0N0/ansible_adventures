@@ -52,5 +52,7 @@
   file:
     path: "{{base_dir}}"
     state: directory
+    owner: root
+    group: root
     mode: "0777"
   tags: [root_tasks]

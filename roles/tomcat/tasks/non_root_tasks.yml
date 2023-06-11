@@ -6,16 +6,20 @@
   file:
     path: "{{tomcat_base_dir}}"
     state: directory
+    owner: "{{tomcat_user}}"
+    group: "{{tomcat_group}}"
     mode: "0766"
 - name: create tomcat dir
   become_user: "{{tomcat_user}}"
   file:
     path: "{{tomcat_base_dir}}/{{tomcat_dirname}}"
     state: directory
+    owner: "{{tomcat_user}}"
+    group: "{{tomcat_group}}"
     mode: "0766"
 
 # unpack tomcat
-- name: unpack tar.gz file
+- name: unpack tomcat tar.gz file
   become_user: "{{tomcat_user}}"
   unarchive:
     src: "{{tomcat_local_archive_path}}"
@@ -23,6 +27,7 @@
     extra_opts: "--strip-components=1"
     owner: "{{tomcat_user}}"
     group: "{{tomcat_group}}"
+    mode: "0766"
   when: not ansible_check_mode
 
 # set as current

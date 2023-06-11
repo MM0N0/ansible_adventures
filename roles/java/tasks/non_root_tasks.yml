@@ -6,21 +6,28 @@
   file:
     path: "{{java_base_dir}}"
     state: directory
+    owner: "{{java_user}}"
+    group: "{{java_group}}"
     mode: "0755"
 - name: create java dir
   become_user: "{{java_user}}"
   file:
     path: "{{java_base_dir}}/{{java_dirname}}"
     state: directory
+    owner: "{{java_user}}"
+    group: "{{java_group}}"
     mode: "0755"
 
 # unpack java
-- name: unpack tar.gz file
+- name: unpack java tar.gz file
   become_user: "{{java_user}}"
   unarchive:
     src: "{{java_local_archive_path}}"
     dest: "{{java_dir}}"
     extra_opts: "--strip-components=1"
+    owner: "{{java_user}}"
+    group: "{{java_group}}"
+    mode: "0755"
   when: not ansible_check_mode
 
 # set as current
