@@ -1,5 +1,5 @@
 - name: tomcat role
-  gather_facts: yes
+  gather_facts: no
   hosts: dev_simple
   become: yes
   become_method: sudo
