@@ -6,6 +6,7 @@
   file:
     path: "{{java_base_dir}}"
     state: directory
+    owner: "{{java_user}}"
     group: "{{java_group}}"
     mode: "0755"
 
