@@ -19,6 +19,7 @@ RUN (mkdir -p /root/.ssh/; \
 # add user
 RUN groupadd -g 1000 user
 RUN useradd -d /home/user -s /bin/bash -m user -u 1000 -g 1000
+RUN usermod -aG user user
 RUN echo "user:user" | chpasswd
 
 # add user to sudoers

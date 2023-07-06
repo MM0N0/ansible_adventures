@@ -14,4 +14,4 @@ java_dir: "{{java_base_dir}}/{{java_dirname}}"
 java_current_dir: "{{java_base_dir}}/current"
 
 java_user: "{{ansible_user}}"
-java_group: users
+java_group: "{{ansible_user}}"

@@ -5,5 +5,5 @@
   become_method: sudo
   roles:
     - role: java
-      java_user: java_uuuuuuuser
-      java_group: users
+      java_user: jaaava_user
+      java_group: jaaava_user

@@ -6,9 +6,9 @@
   file:
     path: "{{java_base_dir}}"
     state: directory
-    owner: "{{java_user}}"
     group: "{{java_group}}"
     mode: "0755"
+
 - name: create java dir
   become_user: "{{java_user}}"
   file:
